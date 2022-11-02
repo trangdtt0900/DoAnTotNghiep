@@ -1,0 +1,125 @@
+body, h2{margin: 0px; font-family: "DM Sans", sans-serif;
+background-color:#E8E8E8;}
+a{ text-decoration: none;color:black;}
+.header{
+width: 100%;
+height: 100%;
+float: left;
+background-image: url(https://new.axilthemes.com/demo/template/etrade/assets/images/preview/banner-bg.png);
+background-repeat: no-repeat;
+background-size: cover;
+background-position: center;
+}
+.header_name{
+float: left;
+width:100%;
+height:100%;
+background-color:#262626;
+}
+.name {
+width: 60%;
+height: 100%;
+float: left;
+}
+.name i{
+font-size:40px;
+color:white;
+margin-left: 90px;
+}
+.name a{
+font-size:52px;
+font-family:Brush Script MT;
+color:#82b440;
+}
+.name a:hover{
+font-size: 54px;
+}
+.login{
+float:left;
+width: 40%;
+}
+.login a
+{
+font-size:23px;
+color:#82b440;
+float: right;
+margin-right: 90px;
+padding-top: 25px;
+}
+.header_menu{ width: 70%;
+margin:1.5% 15%;
+float: left;
+background-color:white;
+border-radius:15px;
+height: 60px;
+padding-top:18px;
+border:1px solid green;
+}
+.header_menu h2{
+float: left;
+width: 22%;
+color:#3577f6;
+font-size:43px;
+margin-left: 60px;
+}
+.menu{
+padding: 0px;
+width:70%;
+float: left;
+}
+.user{
+display: block;
+}
+.link{
+display:none;
+}
+.menu_name{ float: left;
+    width:33%;
+    font-size:22px;
+    text-align: center;
+    }
+ul,li { list-style-type: none;
+    list-style-position:inside;}
+.menu_sach{
+    margin-left:30px;
+    display:none;
+    text-align:left;
+    width:95%;
+    font-size: 18px;
+    background-color: white;
+    float: left;
+    }
+.menu_sach a{
+    float: left;
+    margin: 0 6%;
+    width: 70%;
+    margin-top:15px;
+    margin-bottom: 8px;}
+.menu_name:hover ul{display: block;}
+.menu_sach a:hover{color: #FF497C;}
+.search{ width:30%;
+margin-top:8px;
+float: left;}
+input{width:70%;
+float: left;
+height:28px;
+border: 1px solid #0b0707db;
+border-radius: 7px 0 0 7px;}
+.search button{ float: left;
+height:32px;
+color: #82b440;
+background-color: white;
+font-size:20px;
+border: 1px solid #0b0707db;
+border-radius: 0 7px 7px 0;}
+.content{
+float: left;
+width: 76%;
+background-color: white;
+height: 1000px;
+}
+.left,.right{
+float: left;
+width:12% ;
+height: 1000px;
+}
