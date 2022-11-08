@@ -44,7 +44,7 @@ font-size:23px;
 color:#82b440;
 float: right;
 margin-right: 90px;
-padding-top: 25px;
+padding-top:5px;
 }
 .header_menu{ width: 70%;
 margin:1.5% 15%;
@@ -68,11 +68,32 @@ width:70%;
 float: left;
 }
 .user{
-display: none;
-}
-.link{
 display:block;
 }
+.link{
+display:none;
+}
+.quanly_ad,.quanly_tv{
+display:none;
+width:150px;
+height:120px;
+padding-top: 1%;
+padding-left:1%;
+background-color:rgba(0,0,0,0.6);
+margin-top:2%;
+margin-left:23%;
+float:left;
+position: absolute;
+}
+.quanly_ad a,.quanly_tv a{
+float: left;
+width: 100%;
+font-size:16px;
+margin-top: 10px;
+color: white;
+}
+.quanly:hover .quanly_tv {display:block;}
+.quanly:hover .quanly_ad {display:none;}
 .menu_name{ float: left;
     width:33%;
     font-size:22px;
@@ -122,6 +143,33 @@ margin-left: 12%;
 margin-bottom: 5%;
 }
 
+.slide_show {
+width:5000px;
+-webkit-animation: slide 15s ease infinite;}
+
+.slide {
+float: left;
+width:1200px;
+}
+.slide img{
+height:500px;
+width:100%;
+}
+.home{width: 100%;
+float: left;}
+.anh {
+overflow: hidden;
+width:100%;
+margin: 0 auto;
+}
+@-webkit-keyframes slide {
+0%{margin-left: 0px;}
+20% {margin-left: 0px;}
+40% {margin-left: -1200px;}
+60%{margin-left: -2400px;} 
+80%{margin-left: -1200px;}
+100% {margin-left: 0px;}         
+}
 .home_menu{
 margin: 0;
 padding: 3px;
@@ -152,7 +200,7 @@ font-size:30px;
 float: left;
 margin-left:2%;
 }
-h1,h2,h3{
+h1,h2,h3,h4{
 margin: 0px;
 }
 .them{
@@ -173,8 +221,16 @@ width:30%;
 background-color: white;
 margin-right:20px;
 margin-top: 25px;
+margin-bottom: 5px;
 text-align: center;
 border-top: 2px solid #ffac13;
+}
+.sachcu img{
+width: 70%;
+height: 250px;
+margin-top: 10px;
+margin-bottom: 10px;
+
 }
 .footer{
 float: left;
@@ -182,3 +238,19 @@ width: 100%;
 background-color: #000000;
 height:250px;
 }
+.footer_left, .footer_bet{
+float:left;
+width: 28%;
+color: white;
+margin-left: 3%;
+}
+.footer p{
+margin: 0;
+}
+.footer h2, h4{
+color: #ffff55;
+margin-top: 20px;
+margin-bottom: 10px;
+}
+
+  

@@ -5,18 +5,33 @@
 <title>Chia sẻ sách cũ</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="home.css"/>
+<link rel="stylesheet" href="reponsive.css"/>
 <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
 </head>
 <body>
     <div class="header">
         <div class="header_name">
             <div class="name">
-            <i class="fas fa-book-open"></i><a href="# ">Book Share</a>
+            <i class="fas fa-book-open"></i><a href="# "> Book Share</a>
             </div>
             <div class="login">
-                <a class="user" href=" #"><i class="far fa-user-circle"></i>Thành Viên</a>
-                <a class="link" href="">Đăng nhập </a>
-                <a class="link" href="" style="margin-right:4px;">Đăng ký |</a>
+                <ul>
+                    <li class="quanly">
+                <a class="user" href=" #"><i class="far fa-user-circle"></i> Thành Viên</a>
+                <ul class="quanly_tv">
+                    <li><a href="">Quản lý sách <i class="fa-solid fa-angle-right"></i></a></li>
+                    <li><a href="">Đăng xuất </i></a></li>
+                </ul>
+                <ul class="quanly_ad">
+                    <li><a href="">Quản lý tài khoản <i class="fa-solid fa-angle-right"></i></a></li>
+                    <li><a href="">Quản lý sách <i class="fa-solid fa-angle-right"></i></a></li>
+                    <li><a href="">Đăng xuất </a></li>
+                </ul>
+                </li>
+                </ul>
+
+                <a class="link" href="dangnhap.html">Đăng nhập </a>
+                <a class="link" href="dangky.html" style="margin-right:4px;">Đăng ký |</a>
             </div>
         </div>
         <div class="header_menu">
@@ -47,7 +62,19 @@
     </div>
     <div class="content">
         <div class="anh" style="background-color:white;">
-            <img src="img/anh2.png" width="100%">
+            <div class="slide_show">
+                <div class="slide">
+                   <img src="img/anh2.png">
+                </div>
+                <div class="slide">
+                    <img src="img/anh4.jpg">
+                </div>
+                <div class="slide">
+                    <img src="img/anh5.jpg">
+                </div>
+            </div>
+        </div>
+        <div class="home">
             <ul class="home_menu">
                 <li><a href=" "><img src="http://ecom14.topwebviet.com/images/ecom14/1/images/icon-4.png">Tâm lý</a></li>
                 <li><a href=" "><img src="http://ecom14.topwebviet.com/images/ecom14/1/images/icon-2.png">Lịch sử</a></li>
@@ -62,19 +89,19 @@
             <a class="them" href="#">Xem thêm <i class="fa-sharp fa-solid fa-angles-right"></i></a>
             <div class="sach">
                 <div class="sachcu">
-                    <img src="img/anh.png">
-                    <a href=""><h2>Đọc vị bất kỳ ai</h2></a>
+                    <a href="SachCu.html"> <img src="img/anh5.jpg"></a>
+                    <a href="SachCu.html"><h2>Đọc vị bất kỳ ai</h2></a>
                     <p>Tác giả: David J. Lieberman </p>
                     <p>Điểm thưởng:0 </p>
                 </div>
                 <div class="sachcu">
-                    <img src="img/anh.png">
+                    <a href="SachCu.html"><img src="img/anh5.jpg"></a>
                     <h2>Đọc vị bất kỳ ai</h2>
                     <p>Tác giả: David J. Lieberman </p>
                     <p>Điểm thưởng:0 </p>
                 </div>
                 <div class="sachcu">
-                    <img src="img/anh.png">
+                    <a href="SachCu.html"><img src="img/anh4.jpg"></a>
                     <h2>Đọc vị bất kỳ ai</h2>
                     <p>Tác giả: David J. Lieberman </p>
                     <p>Điểm thưởng:0 </p>
@@ -212,6 +239,17 @@
         </div>
     </div>
     <div class="footer">
+        <div class="footer_left">
+            <h2><i class="fa-regular fa-address-book"></i> Liên hệ</h2>
+            <h4>Để nhận được hỗ trợ hãy liên hệ: </h4>
+            <p><i class="fa-solid fa-phone"></i> Số điện thoại: 0992716328</p>
+            <p><i class="fa-regular fa-envelope"></i> Email: chiasesachcu@gmail.com</p>
+        </div>
+        <div class="footer_bet">
+            <h2><i class="fa-solid fa-book-open"></i> Chia sẻ sách cũ</h2>
+            <p>Chia sẻ sách cũ không chỉ là việc chia sẻ cũ của người này đến người khác.</p>
+            <p>Mà nó còn là sự chia sẻ những tri thức của nhân loại, chia sẻ những tình cảm của con người tới còn người.</p>
+        </div>
     </div>
 </body>
 </html>
