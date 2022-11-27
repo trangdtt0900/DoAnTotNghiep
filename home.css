@@ -1,5 +1,9 @@
 body{margin: 0px; font-family: Arial,Tahoma,Helvetica,sans-serif;;background-color:#F0F0F0;
 }
+html {
+    scroll-behavior: smooth;
+  }
+
 a{ text-decoration: none;color:black;}
 .header{
 width: 100%;
@@ -71,9 +75,9 @@ float: left;
 display:block;
 }
 .link{
-display:none;
+display:block;
 }
-.quanly_ad,.quanly_tv{
+.quanly_tv{
 display:none;
 width:150px;
 height:120px;
@@ -85,7 +89,7 @@ margin-left:23%;
 float:left;
 position: absolute;
 }
-.quanly_ad a,.quanly_tv a{
+.quanly_tv a{
 float: left;
 width: 100%;
 font-size:16px;
@@ -93,7 +97,6 @@ margin-top: 10px;
 color: white;
 }
 .quanly:hover .quanly_tv {display:block;}
-.quanly:hover .quanly_ad {display:none;}
 .menu_name{ float: left;
     width:33%;
     font-size:22px;
@@ -119,7 +122,7 @@ ul,li { list-style: none;
     margin-top:15px;
     margin-bottom: 8px;}
 .menu_name:hover ul {display: block;}
-.menu_sach a:hover{color: #FF497C;}
+.them:hover,.menu_sach a:hover{color: #FF497C;}
 .search{ width:30%;
 margin-top:8px;
 float: left;}
@@ -142,14 +145,12 @@ height:100%;
 margin-left: 12%;
 margin-bottom: 5%;
 }
-
 .slide_show {
 width:5000px;
 -webkit-animation: slide 15s ease infinite;}
-
 .slide {
 float: left;
-width:1200px;
+width:1122px;
 }
 .slide img{
 height:500px;
@@ -165,9 +166,9 @@ margin: 0 auto;
 @-webkit-keyframes slide {
 0%{margin-left: 0px;}
 20% {margin-left: 0px;}
-40% {margin-left: -1200px;}
-60%{margin-left: -2400px;} 
-80%{margin-left: -1200px;}
+40% {margin-left: -1122px;}
+60%{margin-left: -2244px;} 
+80%{margin-left: -1122px;}
 100% {margin-left: 0px;}         
 }
 .home_menu{
@@ -218,6 +219,7 @@ margin-left:27px;
 .sachcu{
 float:left;
 width:30%;
+height:420px;
 background-color: white;
 margin-right:20px;
 margin-top: 25px;
@@ -232,25 +234,65 @@ margin-top: 10px;
 margin-bottom: 10px;
 
 }
+
 .footer{
 float: left;
 width: 100%;
 background-color: #000000;
-height:250px;
+height:100%;
+padding-bottom:30px;
 }
-.footer_left, .footer_bet{
+.footer_left{margin-left:6%;width: 20%;}
+.footer_left,.footer_bet{
 float:left;
-width: 28%;
 color: white;
-margin-left: 3%;
 }
+.footer_bet{width: 25%;}
+.footer_bet a{
+float: left;
+width: 100%;
+color: white;
+margin-top: 8px;
+}
+.footer_bet a:hover{color: #FF497C;}
 .footer p{
-margin: 0;
+margin:9px 0 0 0;
 }
 .footer h2, h4{
-color: #ffff55;
+color:#ffac13;
 margin-top: 20px;
 margin-bottom: 10px;
 }
+.footer_right{float: left;
+margin-top: 1%;
+border-left:1px solid white;
+width: 24%;}
+.footer_right p{float: left;
+font-size: 23px;
+color:white;
+margin-left:3%;
+padding-bottom:3%;}
+.foot{
+float: left;
+width: 100%;
+margin-left: 10%;
+}
+.mau{
+float: left;
+color: #ffac13;
+margin-left: 10%;}
 
-  
+#top{
+    display:none;
+    position: fixed;
+    bottom:4%;
+    right:1.5%;
+    font-size: 14px;
+    border: none;
+    background-color:#caab0e75;
+    color: white;
+    cursor: pointer;
+    padding: 14px;
+     border-radius: 50%;
+}
+#top:hover{background-color: #ffac13;}

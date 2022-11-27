@@ -73,6 +73,7 @@ display: none;
 .link{
 display:block;
 }
+
 .menu_name{ float: left;
     width:33%;
     font-size:22px;
@@ -147,6 +148,14 @@ font-size: 20px;
 margin-bottom: 25px;
  width: 100%;
 }
+.nd p{float:left;
+     width: 27%;}
+.nd input{
+width:50%;
+height:30px;
+border-radius: 3px;
+float: left;
+}
 p{margin: 0;}
 .dangky{
 font-size: 20px;
@@ -157,11 +166,56 @@ width:35%;
 height:8%;
 margin-top: 30px;
 }
+input{font-size: 15px;}
 button{
 cursor: pointer;}
+
+
+
+
 .footer{
-    float: left;
-    width: 100%;
-    background-color: #000000;
-    height:250px;
-    }
+float: left;
+width: 100%;
+background-color: #000000;
+height:100%;
+padding-bottom:30px;
+}
+.footer_left{margin-left:6%;width: 20%;}
+.footer_left,.footer_bet{
+float:left;
+color: white;
+}
+.footer_bet{width: 25%;}
+.footer_bet a{
+float: left;
+width: 100%;
+color: white;
+margin-top: 8px;
+}
+.footer_bet a:hover{color: #FF497C;}
+.footer p{
+margin:9px 0 0 0;
+}
+.footer h2, h4{
+color:#ffac13;
+margin-top: 20px;
+margin-bottom: 10px;
+}
+.footer_right{float: left;
+margin-top: 1%;
+border-left:1px solid white;
+width: 24%;}
+.footer_right p{float: left;
+font-size: 23px;
+color:white;
+margin-left:3%;
+padding-bottom:3%;}
+.foot{
+float: left;
+width: 100%;
+margin-left: 10%;
+}
+.mau{
+float: left;
+color: #ffac13;
+margin-left: 10%;}
