@@ -150,7 +150,7 @@ width:5000px;
 -webkit-animation: slide 15s ease infinite;}
 .slide {
 float: left;
-width:1122px;
+width:1133px;
 }
 .slide img{
 height:500px;
@@ -166,9 +166,9 @@ margin: 0 auto;
 @-webkit-keyframes slide {
 0%{margin-left: 0px;}
 20% {margin-left: 0px;}
-40% {margin-left: -1122px;}
-60%{margin-left: -2244px;} 
-80%{margin-left: -1122px;}
+40% {margin-left:-1133px;}
+60%{margin-left: -2266px;} 
+80%{margin-left: -1133px;}
 100% {margin-left: 0px;}         
 }
 .home_menu{
@@ -205,10 +205,10 @@ h1,h2,h3,h4{
 margin: 0px;
 }
 .them{
-float:right;
-text-align: right;
-width:30%;
-margin-bottom: 20px;
+float:left;
+text-align:center;
+width:100%;
+margin-top: 25px;
 }
 .sach{
 float: left;
@@ -219,7 +219,7 @@ margin-left:27px;
 .sachcu{
 float:left;
 width:30%;
-height:420px;
+height:490px;
 background-color: white;
 margin-right:20px;
 margin-top: 25px;
@@ -229,7 +229,7 @@ border-top: 2px solid #ffac13;
 }
 .sachcu img{
 width: 70%;
-height: 250px;
+height: 320px;
 margin-top: 10px;
 margin-bottom: 10px;
 

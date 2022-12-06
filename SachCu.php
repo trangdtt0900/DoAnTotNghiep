@@ -36,14 +36,14 @@
                    <ul class="menu_sach">
                     <?php foreach ($loai as $key) { ?>
                    <li><a href="loai.php?idl=<?php echo $key['idl']; ?>"> <?php echo $key['tenl']; ?></a></li>
-                  <?php } ?>
+                    <?php } ?>
                    </ul>
                </li>
                <li class="menu_name">
                 <a href=" ">Giới thiệu</a>
                </li>
             </ul>
-            <form action=" " class="search">
+            <form action="loai.php " class="search">
                 <input name="q" value=""/>
                 <button><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
@@ -52,28 +52,30 @@
     <div class="content">
        <h1>Thông tin sách</h1>
        <div class="left">
-           <img src="img/a1
-           5.jpg" height="100%" width="100%"> 
+          <img src="<?php echo $sach['anh']; ?>" height="100%" width="100%"> 
        </div>
        <div class="right">
             <div class="sach">
                 <div class="ten" style="font-size: 23px;float: left; margin-top:20px;margin-bottom: 25px; width: 100%;">
-                <b>Đọc vị bất kì ai</b>
+                <b><?php echo $sach['TenS']; ?></b>
                 </div>
                 <div class="nd">
-                    <p>Tác giả: </p>
+                    <p><b>Tác giả: </b><?php echo $sach['TacGia']; ?> </p>
                 </div>
                 <div class="nd">
-                    <p>Mô tả: </p>
+                    <p><b>Điểm thưởng: </b><?php echo $sach['Diem']; ?></p>
                 </div>
                 <div class="nd">
-                    <p>Điểm thưởng </p>
+                    <p style="margin-bottom:15px;"><b>Mô tả: </b><p><?php echo $sach['MoTa']; ?></p></p>
                 </div>
             </div>
-            <button class="dangky"> <a href="DangKyNhan.html" style="color:#82b440">Nhận ngay</a></button>
+            <p style="color:red;font-size: 20px;" id="tb"></p>
+            <button class="dangky" onclick="chon()" style="color:white">Nhận ngay</button>
+            <script >
+            function chon() {
+                document.getElementById("tb").innerHTML = "Bạn cần đăng nhập để nhận sách!";}
+            </script>
        </div>
-
-
     </div>
     <div class="footer">
         <div class="footer_left">

@@ -175,19 +175,15 @@ p{margin: 0;}
 .dangky{
 font-size: 20px;
 border-radius:10px;
-color:#82b440 ;
-background-color: white;
+color:white;
+background-color:#ffac13;
+border: white;
 width:35%;
 height:5%;
 margin-top: 25px;
 }
 button{
 cursor: pointer;}
-
-
-
-
-
 
 .footer{
 float: left;

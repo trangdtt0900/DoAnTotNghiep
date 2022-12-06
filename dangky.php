@@ -1,5 +1,7 @@
 <?php
 include("lib_db.php");
+$sql2="select*from loai ";
+$loai=select_list ($sql2);
 $error ="";
 if( isset($_POST['dangky']))
 {   $email= $_REQUEST['email'];
@@ -17,7 +19,7 @@ if( isset($_POST['dangky']))
             if($data2==""){
                 if($pass==$repass)
                 { $sql3= "INSERT INTO admin
-                    VALUES (Null,'$name','$pass','$email','able','user')";
+                    VALUES (Null,'$name','$pass','$email',0,'able','user')";
                     exec_update($sql3);
                     header("location:dangnhap.php");
                 }
@@ -57,19 +59,16 @@ if( isset($_POST['dangky']))
                <li class="menu_name">
                    <a href="#">Loại sách</a>
                    <ul class="menu_sach">
-                   <li><a href="">Khoa học</a></li>
-                   <li><a href="">Lịch sử</a></li>
-                   <li><a href="">Tâm lý</a></li>
-                   <li><a href="">Thiếu nhi</a></li>
-                   <li><a href="">Tiểu thuyết</a></li>
-                   <li><a href="">Loại khác</a></li>
+                   <?php foreach ($loai as $key) { ?>
+                   <li><a href="loai.php?idl=<?php echo $key['idl']; ?>"> <?php echo $key['tenl']; ?></a></li>
+                   <?php } ?>
                    </ul>
                </li>
                <li class="menu_name">
                 <a href=" ">Giới thiệu</a>
                </li>
             </ul>
-            <form action=" " class="search">
+            <form action="loai.php" class="search">
                 <input name="q" value=""/>
                 <button><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>

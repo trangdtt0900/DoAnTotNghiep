@@ -8,15 +8,36 @@
     $sqluser="select * from admin where id='$iduser' ";
     $user=select_one($sqluser);
 
-    $sqls="select * from sachcu ";
-    $sach=select_list($sqls);
+    if(isset( $_REQUEST['q'])){
+        $tim_kiem = $_REQUEST['q']; 
+        if( $user['chucnang']=='admin'){
+            $sqls="select * from sachcu where trangthai='able'and TenS like '%$tim_kiem%' ";
+            $sach=select_list($sqls);
+        }
+        else{
+            $sqls="select * from sachcu where id='$iduser' and trangthai='able' and TenS like '%{$tim_kiem}%'";
+            $sach=select_list($sqls);}
+        }
+    else{
+    
+        if($user['chucnang']=='admin'){
+            $sqls="select * from sachcu where trangthai='able' ";
+            $sach=select_list($sqls);
+        }
+        else{
+            $sqls="select * from sachcu where id='$iduser' and trangthai='able'";
+            $sach=select_list($sqls);}
+        }
+
+
+    
 ?>
 <!DOCTYPE HTML>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Chia sẻ sách cũ</title>
-<link rel="stylesheet" href="qlsach.css"/>
+<link rel="stylesheet" href="quanlysach.css"/>
 <script language="javascript" src="js.js"></script>
 <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
 </head>
@@ -32,18 +53,17 @@
                 <a class="user"><i class="far fa-user-circle"></i> <?php echo $user['username']; ?></a>
                 <ul class="quanly_tv">
                    <li><a href="quanlysach.php">Quản lý sách <i class="fa-solid fa-angle-right"></i></a></li>
-                    <li><a id='ad' href="">Quản lý tài khoản <i class="fa-solid fa-angle-right"></i></a></li>
+                    <li><a id='ad'href="quanlytaikhoan.php">Quản lý tài khoản <i class="fa-solid fa-angle-right"></i></a></li>
                     <li><a href="home.php">Đăng xuất</i></a></li>
                     <script >
-                        var m = <?php echo $iduser;?>;
-                        if(m==1){
+                        $m="<?php echo $user['chucnang'];?>";
+                        if($m=='admin'){
                             
                             document.getElementById('ad').style.display='block';
                              }
                         else{
                              document.getElementById('ad').style.display='none';
                             }
-
                     </script>
                 </ul>
                 </li>
@@ -58,27 +78,24 @@
                <li class="menu_name">
                    <a href="#">Loại sách</a>
                    <ul class="menu_sach">
-                   <li><a href="">Khoa học</a></li>
-                   <li><a href="">Lịch sử</a></li>
-                   <li><a href="">Tâm lý</a></li>
-                   <li><a href="">Thiếu nhi</a></li>
-                   <li><a href="">Tiểu thuyết</a></li>
-                   <li><a href="">Loại khác</a></li>
+                   <?php foreach ($loai as $key) { ?>
+                   <li><a href="loaia.php?idl=<?php echo $key['idl']; ?>"> <?php echo $key['tenl']; ?></a></li>
+                   <?php } ?>
                    </ul>
                </li>
                <li class="menu_name">
                 <a href=" ">Giới thiệu</a>
                </li>
             </ul>
-            <form action=" " class="search">
+            <form action="quanlysach.php " class="search">
                 <input name="q" value=""/>
                 <button><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
        </div>
     </div>
     <div class="content">
-        <div class="cont">
-            <div class="quanly" style="font-size: 25px;padding: 30px;">Quản lý sách cũ</div>
+        <div class="cont" style="padding-bottom:40px;">
+            <div class="quanly" style="font-size:25px; padding:30px;">Quản lý sách cũ</div>
             <table class="table" width="90%" border="1">
                 <button style="float: right;margin-right: 5%; margin-bottom: 2%;">
                     <a href="dangsach.php " class="button" style="font-size: 20px;">Đăng thông tin sách</a>
@@ -94,21 +111,19 @@
                   </tr>
                 </thead>
                 <tbody>
-                        <form method="post" >
                         <?php foreach ($sach as $key) { ?>
                            <tr style="text-align:left;">
-                                <td><?php echo $key['TenS']; ?></td>
-                                <td><?php echo $key['TacGia']; ?></td>    
+                                <td style="padding:0 1%;" ><?php echo $key['TenS']; ?></td>
+                                <td style="padding:0 1%;"><?php echo $key['TacGia']; ?></td>    
                                 <td style="text-align:center;"><?php echo $key['Diem']; ?></td> 
                                 <td><img src="<?php echo $key['anh']; ?>"></td>
-                                <td><?php echo $key['MoTa']; ?></td>
+                                <td style="width:48%;padding:0 1%;"><?php echo $key['MoTa']; ?></td>
                                 <td style="width:10%; text-align: center;">
-                                    <button style="width:40% ;"><a href="SuaSach.php?idsc=<?php echo $key['ids']; ?> " >Sửa</a></button>
+                                    <button style="width:40%;"><a href="SuaSach.php?idsc=<?php echo $key['ids']; ?> " >Sửa</a></button>
                                     <button style="width:40%;"><a href=" XoaSach.php?idsc=<?php echo $key['ids']; ?> ">Xóa</a></button>
                                 </td>                                                                                                 
                           </tr>
                          <?php } ?>
-                        </form>  
                 </tbody>
             </table>      
         </div> 
@@ -145,6 +160,21 @@
             </div>
         </div>
     </div>
+    <script>
+     //back to top
+    window.onscroll = function() {scrollFunction()};
+    function scrollFunction() {
+        if (document.body.scrollTop >700 || document.documentElement.scrollTop > 700) {
+            document.getElementById("top").style.display = "block";
+        } 
+        else {
+        document.getElementById("top").style.display = "none";
+        }
+    }
+    function topFunction() {
+        document.documentElement.scrollTo(0,0);
+    }
+</script>
 
 </body>
 </html>

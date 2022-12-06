@@ -8,34 +8,44 @@
     $sqluser="select * from admin where id='$iduser' ";
     $user=select_one($sqluser);
 
-?>
+    if(isset( $_REQUEST['q'])){
+        $tim_kiem = $_REQUEST['q']; 
+        $sql2="select * from admin where username like '%${tim_kiem}%'";
+        $users=select_list($sql2);
+    }
+    else{
+        $sql2="select * from admin";
+        $users=select_list($sql2);
+    }
+   
 
+    
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Chia sẻ sách cũ</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="home.css"/>
-<link rel="stylesheet" href="reponsive.css"/>
+<link rel="stylesheet" href="quanlysach.css"/>
+<script language="javascript" src="js.js"></script>
 <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
 </head>
 <body>
     <div class="header">
         <div class="header_name">
             <div class="name">
-            <i class="fas fa-book-open"></i><a href="home.php"> Book Share</a>
+            <i class="fas fa-book-open"></i><a href="homea.php?page=<?php echo $user['id'];?> ">Book Share</a>
             </div>
-            <div class="login" >
+            <div class="login">
                 <ul class="quanly">
                 <li >
                 <a class="user"><i class="far fa-user-circle"></i> <?php echo $user['username']; ?></a>
                 <ul class="quanly_tv">
-                    <li><a href="quanlysach.php">Quản lý sách <i class="fa-solid fa-angle-right"></i></a></li>
-                    <li><a id='ad' href="quanlytaikhoan.php">Quản lý tài khoản <i class="fa-solid fa-angle-right"></i></a></li>
+                   <li><a href="quanlysach.php">Quản lý sách <i class="fa-solid fa-angle-right"></i></a></li>
+                    <li><a id='ad'href="quanlytaikhoan.php">Quản lý tài khoản <i class="fa-solid fa-angle-right"></i></a></li>
                     <li><a href="home.php">Đăng xuất</i></a></li>
                     <script >
-                        $m = '<?php echo $user['chucnang'];?>';
+                        $m="<?php echo $user['chucnang'];?>";
                         if($m=='admin'){
                             
                             document.getElementById('ad').style.display='block';
@@ -43,100 +53,76 @@
                         else{
                              document.getElementById('ad').style.display='none';
                             }
-
                     </script>
                 </ul>
                 </li>
-                </ul>
+               </ul>
             </div>
         </div>
         <div class="header_menu">
             <ul class="menu">
                <li class="menu_name">
-                   <a href="home.php ">Home</a>
+                   <a href="homea.php?page=<?php echo $user['id'];?> ">Home</a>
                </li>
                <li class="menu_name">
                    <a href="#">Loại sách</a>
                    <ul class="menu_sach">
-                  <?php foreach ($loai as $key) { ?>
+                   <?php foreach ($loai as $key) { ?>
                    <li><a href="loaia.php?idl=<?php echo $key['idl']; ?>"> <?php echo $key['tenl']; ?></a></li>
-                  <?php } ?>
+                   <?php } ?>
                    </ul>
                </li>
                <li class="menu_name">
                 <a href=" ">Giới thiệu</a>
                </li>
             </ul>
-            <form action=" " class="search">
+            <form action="quanlytaikhoan.php" class="search">
                 <input name="q" value=""/>
                 <button><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
        </div>
     </div>
-    <style>
-    .TT{border-top:0px;height:530px;background-color:#F0F0F0;float:left;width: 30%;margin-left: 20px;}
-    .sachcu{border-top: 0px; width: 100%;}
-    .sachcu:hover{border:3px solid #ffac13;}
-    </style>
-    <?php
-    if(isset( $_REQUEST['idl'])){
-    $idl=$_REQUEST["idl"];
-    $sql="select*from sachcu where idl='$idl' and trangthai='able'";
-    $sach=select_list($sql);
-    $sql1="select*from loai where idl='$idl'";
-    $loais=select_one ($sql1);
-     ?>
-    <div class="content" style="min-height: 300px;">
-        <div class="noidung">
-            <h1 style="font-size:35px;width: 100%; color:#ffac13;"><?php echo $loais['tenl']; ?></h1>  
-            <div class="sach">
-            <?php foreach ($sach as $key) { ?>
-                <div class="TT">
-                    <div class="sachcu">
-                        <a href="SachCua.php?idsc=<?php echo $key['ids']; ?>"> <img src="<?php echo $key['anh']; ?>"></a>
-                        <a href="SachCua.php?idsc=<?php echo $key['ids']; ?>"><h2 style="font-size: 23px;"><?php echo $key['TenS']; ?></h2></a>
-                        <p>Tác giả: <?php echo $key['TacGia']; ?> </p>
-                        <p>Điểm thưởng: <?php echo $key['Diem']; ?> </p>
-                    </div>
-                </div>
-            <?php } ?>
-            </div>
-        </div>
+    <div class="content">
+        <div class="cont" style="padding-bottom:40px;">
+            <div class="quanly" style="font-size:25px; padding:30px;">Quản lý tài khoản</div>
+            <table class="table" width="90%" border="1">
+                <button style="float: right;margin-right: 5%; margin-bottom: 2%;">
+                    <a href="TaoTK.php " class="button" style="font-size: 20px;">Tạo tài khoản</a>
+                </button> 
+                <thead>
+                  <tr>
+                    <th>Username</th>
+                    <th>Password</th>        
+                    <th>Email</th>
+                    <th>Điểm</th>
+                    <th>Trạng thái</th>
+                    <th>Chức năng</th> 
+                    <th>Thao tác</th> 
+
+                  </tr>
+                </thead>
+                <tbody>
+                        <?php foreach ($users as $key) { ?>
+                           <tr style="text-align:center;">
+                                <td ><?php echo $key['username']; ?></td>
+                                <td type="password"><?php echo $key['password']; ?></td>    
+                                <td ><?php echo $key['email']; ?></td> 
+                                <td ><?php echo $key['Diem']; ?></td>
+                                <td ><?php echo $key['trangthai']; ?></td>
+                                <td><?php echo $key['chucnang']; ?></td>
+                                <td style="width:20%; text-align: center;padding-top: 25px;padding-bottom: 25px;">
+                                    <button style="width:40%; "><a style="padding:20%; " href="KhoaTK.php?idusers=<?php echo $key['id']; ?> ">Khóa</a></button>
+                                    <button style="width:40%;"><a  style="padding:10%; " href=" MoKhoaTK.php?idusers=<?php echo $key['id']; ?> ">Mở khóa</a></button>
+                                </td>                                                                                                 
+                          </tr>
+                         <?php } ?> 
+                </tbody>
+            </table>      
+        </div> 
         <div class="back_top">
             <button onclick="topFunction()" id="top" title="Go to top"><i class="fa-solid fa-angle-up"></i></button>
-        </div>
+        </div>    
     </div>
-    <?php } 
-
-    //Tìm kiếm
-    else{
-     $tim_kiem = $_REQUEST['q']; 
-     $sql = "Select * from sachcu where TenS like '%{$tim_kiem}%'";
-     $sach = Select_list($sql);
-
-     ?>
-    <div class="content" style="min-height: 300px;">
-        <div class="noidung">
-            <h1 style="font-size:35px;width: 100%; color:#ffac13;">Tìm kiếm: <?=$tim_kiem?></h1>  
-            <div class="sach">
-            <?php foreach ($sach as $key) { ?>
-                <div class="TT">
-                    <div class="sachcu">
-                        <a href="SachCu.php?idsc=<?php echo $key['ids']; ?>"> <img src="<?php echo $key['anh']; ?>"></a>
-                        <a href="SachCu.php?idsc=<?php echo $key['ids']; ?>"><h2 style="font-size: 23px;"><?php echo $key['TenS']; ?></h2></a>
-                        <p>Tác giả: <?php echo $key['TacGia']; ?> </p>
-                        <p>Điểm thưởng: <?php echo $key['Diem']; ?> </p>
-                    </div>
-                </div>
-            <?php } ?>
-            </div>
-        </div>
-        <div class="back_top">
-            <button onclick="topFunction()" id="top" title="Go to top"><i class="fa-solid fa-angle-up"></i></button>
-        </div>
-    </div>
-    <?php }?>
-
     <div class="footer">
         <div class="footer_left">
             <h2><i class="fa-regular fa-address-book"></i> Liên hệ</h2>
@@ -156,8 +142,8 @@
             <a href="#">Đăng ký nhận sách cũ</a>
         </div>
         <div class="footer_right" style="margin-left:40px;">
-            <p style="margin-left: 22%;margin-top:8%;">099 271 6328</p>
-            <p style="margin-bottom:4%;"><i class="fa-regular fa-envelope"></i>chiasesachcu@gmail.com</p>
+            <p style="margin-left: 22%;margin-top:8%;">0992716328</p>
+            <p style="margin-bottom:4%;"><i class="fa-regular fa-envelope"></i> chiasesachcu@gmail.com</p>
             <div class="foot">
                 <a class="mau" href="#"><i class="fa-brands fa-facebook-f"></i></a>
                 <a class="mau" href="#"><i class="fa-brands fa-twitter"></i></a>
@@ -166,20 +152,21 @@
             </div>
         </div>
     </div>
-<script>
-     //back to top
-    window.onscroll = function() {scrollFunction()};
-    function scrollFunction() {
+    <script >
+    //back to top
+        window.onscroll = function() {scrollFunction()};
+        function scrollFunction() {
         if (document.body.scrollTop >700 || document.documentElement.scrollTop > 700) {
             document.getElementById("top").style.display = "block";
         } 
         else {
         document.getElementById("top").style.display = "none";
         }
-    }
-    function topFunction() {
+        }
+        function topFunction() {
         document.documentElement.scrollTo(0,0);
-    }
-</script>
+        }
+    </script>
+
 </body>
 </html>

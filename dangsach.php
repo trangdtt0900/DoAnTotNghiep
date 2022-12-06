@@ -21,8 +21,10 @@
 
         else{
             $addS= "INSERT INTO sachcu
-            VALUES (Null,'$iduser','$loais', '$tensc', '$tacgia','img/$anh', '$mota','$diem')";
-            exec_update($addS);} 
+            VALUES (Null,'$iduser','$loais', '$tensc', '$tacgia','img/$anh', '$mota','$diem','able')";
+            exec_update($addS);
+            $error="0";
+            } 
      }
 ?>
 
@@ -47,19 +49,8 @@
                 <a class="user"><i class="far fa-user-circle"></i> <?php echo $user['username']; ?></a>
                 <ul class="quanly_tv">
                     <li><a href="quanlysach.php">Quản lý sách <i class="fa-solid fa-angle-right"></i></a></li>
-                    <li><a id='ad' href="">Quản lý tài khoản <i class="fa-solid fa-angle-right"></i></a></li>
+                    <li><a id='ad' href="quanlytaikhoan.php">Quản lý tài khoản <i class="fa-solid fa-angle-right"></i></a></li>
                     <li><a href="home.php">Đăng xuất</i></a></li>
-                    <script >
-                        var m = <?php echo $iduser;?>;
-                        if(m==1){
-                            
-                            document.getElementById('ad').style.display='block';
-                             }
-                        else{
-                             document.getElementById('ad').style.display='none';
-                            }
-
-                    </script>
                 </ul>
                 </li>
                </ul>
@@ -73,19 +64,16 @@
                <li class="menu_name">
                    <a href="#">Loại sách</a>
                    <ul class="menu_sach">
-                   <li><a href="">Khoa học</a></li>
-                   <li><a href="">Lịch sử</a></li>
-                   <li><a href="">Tâm lý</a></li>
-                   <li><a href="">Thiếu nhi</a></li>
-                   <li><a href="">Tiểu thuyết</a></li>
-                   <li><a href="">Loại khác</a></li>
+                   <?php foreach ($loai as $key) { ?>
+                   <li><a href="loai.php?idl=<?php echo $key['idl']; ?>"> <?php echo $key['tenl']; ?></a></li>
+                   <?php } ?>
                    </ul>
                </li>
                <li class="menu_name">
                 <a href=" ">Giới thiệu</a>
                </li>
             </ul>
-            <form action=" " class="search">
+            <form action="quanlysach.php " class="search">
                 <input name="q" value=""/>
                 <button><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
@@ -167,5 +155,19 @@
             </div>
         </div>
     </div>
+    <script >
+            $m = '<?php echo $user['chucnang'];?>';
+            if($m=='admin'){
+                            
+                document.getElementById('ad').style.display='block';}
+            else{
+                document.getElementById('ad').style.display='none';}
+
+            $error= "<?php echo $error;?>";
+            if($error=="0"){
+                var result = alert("Đăng thông tin sách thành công!");
+                window.location.href = 'quanlysach.php'; }
+
+    </script>
 </body>
 </html>

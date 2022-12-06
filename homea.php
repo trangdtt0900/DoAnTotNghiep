@@ -1,18 +1,18 @@
 <?php 
-	include('lib_db.php');
+    include('lib_db.php');
     $sql="select*from loai  ";
     $loai=select_list ($sql);
-    $sql1 = "select * from sachcu where idl=1 LIMIT 6 ";
+    $sql1 = "select * from sachcu where idl=1 and trangthai='able' LIMIT 6 ";
     $sach1 = select_list($sql1);
-    $sql2="select * from sachcu where idl=2 LIMIT 10";
+    $sql2="select * from sachcu where idl=2 and trangthai='able' LIMIT 6";
     $sach2=select_list($sql2);
-    $sql3="select * from sachcu where idl=3 LIMIT 6 ";
+    $sql3="select * from sachcu where idl=3 and trangthai='able' LIMIT 6 ";
     $sach3=select_list($sql3);
-    $sql4="select * from sachcu where idl=4 LIMIT 6 ";
+    $sql4="select * from sachcu where idl=4 and trangthai='able' LIMIT 6 ";
     $sach4=select_list($sql4);
-    $sql5="select * from sachcu where idl=5 LIMIT 6 ";
+    $sql5="select * from sachcu where idl=5 and trangthai='able' LIMIT 6 ";
     $sach5=select_list($sql5);
-    $sql6="select * from sachcu where idl=3 LIMIT 6 ";
+    $sql6="select * from sachcu where idl=6 and trangthai='able' LIMIT 6 ";
     $sach6=select_list($sql6);
     $iduser=$_REQUEST["page"];
     $sqluser="select * from admin where id='$iduser' ";
@@ -43,11 +43,11 @@
                 <a class="user"><i class="far fa-user-circle"></i> <?php echo $user['username']; ?></a>
                 <ul class="quanly_tv">
                     <li><a href="quanlysach.php">Quản lý sách <i class="fa-solid fa-angle-right"></i></a></li>
-                    <li><a id='ad' href="">Quản lý tài khoản <i class="fa-solid fa-angle-right"></i></a></li>
+                    <li><a id='ad' href="quanlytaikhoan.php">Quản lý tài khoản <i class="fa-solid fa-angle-right"></i></a></li>
                     <li><a href="home.php">Đăng xuất</i></a></li>
                     <script >
-                        var m = <?php echo $iduser;?>;
-                        if(m==1){
+                        $m = '<?php echo $user['chucnang'];?>';
+                        if($m=='admin'){
                             
                             document.getElementById('ad').style.display='block';
                              }
@@ -78,7 +78,7 @@
                 <a href=" ">Giới thiệu</a>
                </li>
             </ul>
-            <form action=" " class="search">
+            <form action="loaia.php " class="search">
                 <input name="q" value=""/>
                 <button><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
@@ -100,24 +100,24 @@
         </div>
         <div class="home">
             <ul class="home_menu">
-                <li><a href="loai.php?idl=3 "><img src="http://ecom14.topwebviet.com/images/ecom14/1/images/icon-4.png">Tâm lý</a></li>
-                <li><a href="loai.php?idl=2 "><img src="http://ecom14.topwebviet.com/images/ecom14/1/images/icon-2.png">Lịch sử</a></li>
-                <li><a href=" loai.php?idl=4"><img src="http://ecom14.topwebviet.com/images/ecom14/1/images/icon-5.png">Thiếu nhi</a></li>
-                <li><a href=" loai.php?idl=1"><img src="http://ecom14.topwebviet.com/images/ecom14/1/images/icon-3.png">Khoa học</a></li>
-                <li><a href="loai.php?idl=5 "><img src="http://ecom14.topwebviet.com/images/ecom14/1/images/icon-1.png">Tiểu thuyết</a></li>
-                <li><a href=" loai.php?idl=6"><img src="http://ecom14.topwebviet.com/images/ecom14/1/images/icon-1.png">Loại khác</a></li>
+                <li><a href="loaia.php?idl=3 "><img src="http://ecom14.topwebviet.com/images/ecom14/1/images/icon-4.png">Tâm lý</a></li>
+                <li><a href="loaia.php?idl=2 "><img src="http://ecom14.topwebviet.com/images/ecom14/1/images/icon-2.png">Lịch sử</a></li>
+                <li><a href=" loaia.php?idl=4"><img src="http://ecom14.topwebviet.com/images/ecom14/1/images/icon-5.png">Thiếu nhi</a></li>
+                <li><a href=" loaia.php?idl=1"><img src="http://ecom14.topwebviet.com/images/ecom14/1/images/icon-3.png">Khoa học</a></li>
+                <li><a href="loaia.php?idl=5 "><img src="http://ecom14.topwebviet.com/images/ecom14/1/images/icon-1.png">Tiểu thuyết</a></li>
+                <li><a href=" loaia.php?idl=6"><img src="http://ecom14.topwebviet.com/images/ecom14/1/images/icon-1.png">Loại khác</a></li>
             </ul>
         </div>
         <div class="noidung">
             <h1>Tâm lý</h1>
-            <a class="them" href="loai.php?id=3">Xem thêm <i class="fa-sharp fa-solid fa-angles-right"></i></a>
+            <a class="them" href="loaia.php?id=3">Xem thêm <i class="fa-sharp fa-solid fa-angles-right"></i></a>
             <div class="sach">
                 <?php foreach ($sach3 as $key) { ?>
                 <div class="sachcu">
-                    <a href="SachCua.php?idsc=<?php echo $key['ids']; ?>"> <img src="img/anh5.jpg"></a>
-                    <a href="SachCua.php?idsc=<?php echo $key['ids']; ?>"><h2><?php echo $key['TenS']; ?></h2></a>
+                    <a href="SachCua.php?idsc=<?php echo $key['ids']; ?>"> <img src="<?php echo $key['anh']; ?>"></a>
+                    <a href="SachCua.php?idsc=<?php echo $key['ids']; ?>"><h2 style="font-size: 23px"><?php echo $key['TenS']; ?></h2></a>
                     <p>Tác giả: <?php echo $key['TacGia']; ?></p>
-                    <p>Điểm thưởng:<?php echo $key['Diem']; ?></p>
+                    <p>Điểm thưởng: <?php echo $key['Diem']; ?></p>
                 </div>
                 <?php } ?>
             </div>
@@ -125,7 +125,7 @@
 
         <div class="noidung">
             <h1>Lịch sử</h1>
-            <a class="them" href="loai.php?id=2">Xem thêm <i class="fa-sharp fa-solid fa-angles-right"></i></a>
+            <a class="them" href="loaia.php?id=2">Xem thêm <i class="fa-sharp fa-solid fa-angles-right"></i></a>
             <div class="sach">
                 <div class="sachcu">
                     <img src="img/anh.png">
@@ -283,7 +283,7 @@
      //back to top
      window.onscroll = function() {scrollFunction()};
     function scrollFunction() {
-        if (document.body.scrollTop >350 || document.documentElement.scrollTop > 350) {
+        if (document.body.scrollTop >700 || document.documentElement.scrollTop > 700) {
             document.getElementById("top").style.display = "block";
         } 
         else {

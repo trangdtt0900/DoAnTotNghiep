@@ -7,10 +7,30 @@
     $iduser=$_SESSION['user'];
     $sqluser="select * from admin where id='$iduser' ";
     $user=select_one($sqluser);
-
+        
     $idsc = $_REQUEST['idsc'];
     $sql1 = "select * from sachcu where ids = '$idsc'";
     $sach = select_one($sql1);
+    $error="";
+    if (isset($_POST['sua'])) 
+    { 
+       
+        $tensc = $_POST['ten'];
+        $loais = $_POST['loais'];
+        $tacgia = $_POST['tacgia'];
+        $anh = $_POST['anh'];
+        $mota = $_POST['mota'];
+        $diem = $_POST['diem'];
+
+        if($tensc==""||$loais==""||$tacgia==""||$anh==""||$diem==""){
+         $error="1";}   
+
+        else{
+            $editS= " UPDATE sachcu SET id='$iduser',idl='$loais', TenS='$tensc', TacGia='$tacgia',anh='$anh', MoTa='$mota', Diem='$diem' where ids=$idsc";
+            exec_update($editS);
+            $error="0";
+            } 
+     }
 ?>
 
 <!DOCTYPE HTML>
@@ -34,12 +54,23 @@
                 <a class="user"><i class="far fa-user-circle"></i> <?php echo $user['username']; ?></a>
                 <ul class="quanly_tv">
                     <li><a href="quanlysach.php">Quản lý sách <i class="fa-solid fa-angle-right"></i></a></li>
-                    <li><a href="home.php">Đăng xuất </i></a></li>
-                </ul>
-                <ul class="quanly_ad">
-                    <li><a href="">Quản lý tài khoản <i class="fa-solid fa-angle-right"></i></a></li>
-                    <li><a href="quanlysach.php">Quản lý sách <i class="fa-solid fa-angle-right"></i></a></li>
-                    <li><a href="home.php">Đăng xuất </a></li>
+                    <li><a id='ad' href="quanlytaikhoan.php">Quản lý tài khoản <i class="fa-solid fa-angle-right"></i></a></li>
+                    <li><a href="home.php">Đăng xuất</i></a></li>
+                    <script >
+                        $m = '<?php echo $user['chucnang'];?>';
+                        if($m=='admin'){
+                            
+                            document.getElementById('ad').style.display='block';
+                             }
+                        else{
+                             document.getElementById('ad').style.display='none';
+                            }
+                        $error= "<?php echo $error;?>";
+                        if($error=="0"){
+                            var result = alert("Sửa thông tin sách thành công!");
+                            window.location.href = 'quanlysach.php'; }
+
+                    </script>
                 </ul>
                 </li>
                </ul>
@@ -53,19 +84,16 @@
                <li class="menu_name">
                    <a href="#">Loại sách</a>
                    <ul class="menu_sach">
-                   <li><a href="">Khoa học</a></li>
-                   <li><a href="">Lịch sử</a></li>
-                   <li><a href="">Tâm lý</a></li>
-                   <li><a href="">Thiếu nhi</a></li>
-                   <li><a href="">Tiểu thuyết</a></li>
-                   <li><a href="">Loại khác</a></li>
+                   <?php foreach ($loai as $key) { ?>
+                   <li><a href="loaia.php?idl=<?php echo $key['idl']; ?>"> <?php echo $key['tenl']; ?></a></li>
+                   <?php } ?>
                    </ul>
                </li>
                <li class="menu_name">
                 <a href=" ">Giới thiệu</a>
                </li>
             </ul>
-            <form action=" " class="search">
+            <form action="quanlysach.php " class="search">
                 <input name="q" value=""/>
                 <button><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
@@ -73,6 +101,7 @@
     </div>
     <div class="content" style="height:700px ;">
        <h1 style="margin-bottom: 0;">Sửa thông tin sách cũ</h1>
+       <form method="post">
        <div class="right">
         <style>.nd p{float:left;}</style>
             <div class="sach">
@@ -82,12 +111,13 @@
                 </div>
                 <div class="nd">
                     <p>Thể loai</p>
-                    <select id="loai" name="loai" style="width:30%;height:30px; border-radius: 3px;float: left;border:2px solid black;" >   
+                    <select id="loai" name="loais" style="width:30%;height:30px; border-radius: 3px;float: left;border:2px solid black;" >   
                            <?php
                                  foreach ($loai as $key) 
                                  {
                                   ?>
-                                     <option value="<?=$key['idl']; ?>" <?php if($key['idl'] == $sach["idl"]) echo "selected"?> ><?=$key['tenl']; ?></option>   
+                                     <option value="<?=$key['idl']; ?>" <?php if($key['idl'] == $sach["idl"]) echo "selected"?> ><?=$key['tenl']; ?>
+                                     </option>   
                                     <?php
                                  } ?>                                                        
                     </select>
@@ -99,19 +129,21 @@
                 </div>
                 <div class="nd">
                     <p>Ảnh</p>
-                    <input name="anh" value="<?= $sach['anh']?>" type="file" value placeholder="Nhập ảnh" style="float: left;">
+                    <input name="anh" value="<?= $sach['anh']?>" type="text" style="float: left;border-radius: 3px;">
                 </div>
                 <div class="nd">
                     <p>Mô tả </p>
-                    <input name="mota" value="<?= $sach['MoTa']?>" type="text"style="width:50%;height:50px; border-radius: 3px;float: left;" value=" ">
+                    <input name="mota" value="<?= $sach['MoTa']?>" type="text"style="width:50%;height:50px; border-radius: 3px;float: left;" >
                 </div>
                 <div class="nd">
                     <p>Điểm thưởng </p>
                     <input name="diem" value="<?= $sach['Diem']?>" min="0"  type="number"style="width:50%;height:30px; border-radius: 3px;float: left;">
                 </div>
+                <label style="color: red;"><?php if($error == "1"){ echo "Không được bỏ trống trường thông tin!";} ?></label>
             </div>
-            <button class="dangky">Đăng thông tin</button>
+            <button class="dangky" name="sua" style="height:50px;" type="submit">Sửa thông tin</button>
        </div>
+    </form>
     </div>
     <div class="footer">
         <div class="footer_left">

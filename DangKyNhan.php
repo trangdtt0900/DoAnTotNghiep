@@ -8,26 +8,64 @@
     $sqluser="select * from admin where id='$iduser' ";
     $user=select_one($sqluser);
 
-?>
+    $ids=$_REQUEST['idsc'];
+    $sqls="select * from sachcu where ids='$ids' ";
+    $sach=select_one($sqls);
 
+    $id=$sach['id'];
+    $sqldang="select * from admin where id='$id' ";
+    $userdang=select_one($sqldang);
+
+    $error="";
+    
+    if (isset($_POST['nhansach'])) 
+    {
+        $tenn = $_POST['tennhan'];
+        $sdt = $_POST['sdtnhan'];
+        $dc = $_POST['diachinhan'];
+
+        if($tenn==""||$sdt==""||$dc=="")
+        {
+         $error="1";}   
+
+        else{
+
+            $diem_user_nhan=$user['Diem'] - $sach['Diem'];
+            $diem_user_dang=$userdang['Diem'] + $sach['Diem'];
+
+            $nhan= "INSERT INTO dangkynhan VALUES (Null,'$iduser','$ids','$tenn','$dc','$sdt')";
+            exec_update($nhan);
+
+            $usernhan= "UPDATE admin SET Diem='$diem_user_nhan' where id='$iduser'" ;
+            exec_update($usernhan);
+
+            $userdang= "UPDATE admin SET Diem='$diem_user_dang'where id='$id' " ;
+            exec_update($userdang);
+
+            $sach_nhan= "UPDATE sachcu SET trangthai='disable' where ids='$ids' " ;
+            exec_update($sach_nhan);
+            $error="0";
+            }
+
+        }
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Chia sẻ sách cũ</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="home.css"/>
-<link rel="stylesheet" href="reponsive.css"/>
+<link rel="stylesheet" href="SachCu.css"/>
 <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
 </head>
 <body>
     <div class="header">
         <div class="header_name">
             <div class="name">
-            <i class="fas fa-book-open"></i><a href="home.php"> Book Share</a>
+            <i class="fas fa-book-open"></i><a href="homea.php?page=<?php echo $user['id']; ?>">Book Share</a>
             </div>
-            <div class="login" >
-                <ul class="quanly">
+            <div class="login">
+              <ul class="quanly">
                 <li >
                 <a class="user"><i class="far fa-user-circle"></i> <?php echo $user['username']; ?></a>
                 <ul class="quanly_tv">
@@ -35,7 +73,7 @@
                     <li><a id='ad' href="quanlytaikhoan.php">Quản lý tài khoản <i class="fa-solid fa-angle-right"></i></a></li>
                     <li><a href="home.php">Đăng xuất</i></a></li>
                     <script >
-                        $m = '<?php echo $user['chucnang'];?>';
+                        $m = "<?php echo $user['chucnang'];?>";
                         if($m=='admin'){
                             
                             document.getElementById('ad').style.display='block';
@@ -47,96 +85,72 @@
                     </script>
                 </ul>
                 </li>
-                </ul>
+               </ul>
             </div>
         </div>
         <div class="header_menu">
             <ul class="menu">
                <li class="menu_name">
-                   <a href="home.php ">Home</a>
+                   <a href="homea.php?page=<?php echo $user['id']; ?>">Home</a>
                </li>
                <li class="menu_name">
                    <a href="#">Loại sách</a>
                    <ul class="menu_sach">
-                  <?php foreach ($loai as $key) { ?>
-                   <li><a href="loaia.php?idl=<?php echo $key['idl']; ?>"> <?php echo $key['tenl']; ?></a></li>
-                  <?php } ?>
+                    <?php foreach ($loai as $key) { ?>
+                    <li><a href="loaia.php?idl=<?php echo $key['idl']; ?>"> <?php echo $key['tenl']; ?></a></li>
+                    <?php } ?>
                    </ul>
                </li>
                <li class="menu_name">
                 <a href=" ">Giới thiệu</a>
                </li>
             </ul>
-            <form action=" " class="search">
+            <form action="loaia.php " class="search">
                 <input name="q" value=""/>
                 <button><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
        </div>
     </div>
-    <style>
-    .TT{border-top:0px;height:530px;background-color:#F0F0F0;float:left;width: 30%;margin-left: 20px;}
-    .sachcu{border-top: 0px; width: 100%;}
-    .sachcu:hover{border:3px solid #ffac13;}
-    </style>
-    <?php
-    if(isset( $_REQUEST['idl'])){
-    $idl=$_REQUEST["idl"];
-    $sql="select*from sachcu where idl='$idl' and trangthai='able'";
-    $sach=select_list($sql);
-    $sql1="select*from loai where idl='$idl'";
-    $loais=select_one ($sql1);
-     ?>
-    <div class="content" style="min-height: 300px;">
-        <div class="noidung">
-            <h1 style="font-size:35px;width: 100%; color:#ffac13;"><?php echo $loais['tenl']; ?></h1>  
+    <div class="content">
+       <h1>Thông tin đăng ký nhận sách cũ</h1>
+       <form method="post">
+       <div class="left">
+           <img src="<?php echo $sach['anh']; ?>" height="100%" width="100%"> 
+       </div>
+       <div class="right" style="margin-top: 10%;">
             <div class="sach">
-            <?php foreach ($sach as $key) { ?>
-                <div class="TT">
-                    <div class="sachcu">
-                        <a href="SachCua.php?idsc=<?php echo $key['ids']; ?>"> <img src="<?php echo $key['anh']; ?>"></a>
-                        <a href="SachCua.php?idsc=<?php echo $key['ids']; ?>"><h2 style="font-size: 23px;"><?php echo $key['TenS']; ?></h2></a>
-                        <p>Tác giả: <?php echo $key['TacGia']; ?> </p>
-                        <p>Điểm thưởng: <?php echo $key['Diem']; ?> </p>
-                    </div>
+                <div class="nd">
+                    <p style="float:left;">Tên sách cũ: <?php echo $sach['TenS']; ?> </p>
                 </div>
-            <?php } ?>
-            </div>
-        </div>
-        <div class="back_top">
-            <button onclick="topFunction()" id="top" title="Go to top"><i class="fa-solid fa-angle-up"></i></button>
-        </div>
-    </div>
-    <?php } 
-
-    //Tìm kiếm
-    else{
-     $tim_kiem = $_REQUEST['q']; 
-     $sql = "Select * from sachcu where TenS like '%{$tim_kiem}%'";
-     $sach = Select_list($sql);
-
-     ?>
-    <div class="content" style="min-height: 300px;">
-        <div class="noidung">
-            <h1 style="font-size:35px;width: 100%; color:#ffac13;">Tìm kiếm: <?=$tim_kiem?></h1>  
-            <div class="sach">
-            <?php foreach ($sach as $key) { ?>
-                <div class="TT">
-                    <div class="sachcu">
-                        <a href="SachCu.php?idsc=<?php echo $key['ids']; ?>"> <img src="<?php echo $key['anh']; ?>"></a>
-                        <a href="SachCu.php?idsc=<?php echo $key['ids']; ?>"><h2 style="font-size: 23px;"><?php echo $key['TenS']; ?></h2></a>
-                        <p>Tác giả: <?php echo $key['TacGia']; ?> </p>
-                        <p>Điểm thưởng: <?php echo $key['Diem']; ?> </p>
-                    </div>
+                <div class="nd">
+                    <p style="float:left;">Điểm thưởng: <?php echo $sach['Diem']; ?>  </p>
                 </div>
-            <?php } ?>
+                <div class="nd">
+                    <p style="float:left;">Họ tên người nhận: </p>
+    				<input name="tennhan" type="text" name=""  style="width:50%;height: 25px; border-radius:3px;float: left;margin-left:15px;">
+                </div>
+                <div class="nd">
+                    <p style="float:left;">Số điện thoại: </p>
+    				<input name="sdtnhan" type="tel" name=""  style="width:50%;height: 25px; border-radius: 3px;float: left;margin-left:68px;">
+                </div>
+                <div class="nd">
+                    <p style="float:left;">Địa chỉ nhận sách: </p>
+    				<input name="diachinhan" type="text" name=""  style="width:50%;height: 25px; border-radius: 3px;float: left;margin-left:23px; margin-bottom: 10px;">
+                </div>
+                 <label style="color: red;"><?php if($error == "1"){ echo "Không được bỏ trống thông tin nhận";} ?></label>
             </div>
-        </div>
-        <div class="back_top">
-            <button onclick="topFunction()" id="top" title="Go to top"><i class="fa-solid fa-angle-up"></i></button>
-        </div>
-    </div>
-    <?php }?>
+            <button class="dangky" name="nhansach" style="height:50px;">Đăng ký nhận</button>
 
+
+            <script >
+                        $error= "<?php echo $error;?>";
+                        if($error=="0"){
+                           alert("Chúc mừng bạn đã đăng ký nhận sách thành công!");
+                           window.location.href = 'homea.php?page=<?php echo $user['id']; ?>'; }
+            </script>
+       </div>
+       </form>
+    </div>
     <div class="footer">
         <div class="footer_left">
             <h2><i class="fa-regular fa-address-book"></i> Liên hệ</h2>
@@ -166,20 +180,5 @@
             </div>
         </div>
     </div>
-<script>
-     //back to top
-    window.onscroll = function() {scrollFunction()};
-    function scrollFunction() {
-        if (document.body.scrollTop >700 || document.documentElement.scrollTop > 700) {
-            document.getElementById("top").style.display = "block";
-        } 
-        else {
-        document.getElementById("top").style.display = "none";
-        }
-    }
-    function topFunction() {
-        document.documentElement.scrollTo(0,0);
-    }
-</script>
 </body>
 </html>

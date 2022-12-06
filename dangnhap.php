@@ -1,6 +1,8 @@
 <?php
 include("lib_db.php");
 session_start();
+$sql2="select*from loai ";
+$loai=select_list ($sql2);
 $error ="";
 if( isset($_POST['login']))
 {
@@ -51,19 +53,16 @@ if( isset($_POST['login']))
                <li class="menu_name">
                    <a href="#">Loại sách</a>
                    <ul class="menu_sach">
-                   <li><a href="">Khoa học</a></li>
-                   <li><a href="">Lịch sử</a></li>
-                   <li><a href="">Tâm lý</a></li>
-                   <li><a href="">Thiếu nhi</a></li>
-                   <li><a href="">Tiểu thuyết</a></li>
-                   <li><a href="">Loại khác</a></li>
+                   <?php foreach ($loai as $key) { ?>
+                   <li><a href="loai.php?idl=<?php echo $key['idl']; ?>"> <?php echo $key['tenl']; ?></a></li>
+                   <?php } ?>
                    </ul>
                </li>
                <li class="menu_name">
                 <a href=" ">Giới thiệu</a>
                </li>
             </ul>
-            <form action=" " class="search">
+            <form action="loai.php " class="search">
                 <input name="q" value=""/>
                 <button><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
